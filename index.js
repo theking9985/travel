@@ -12,6 +12,13 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
+mongoose.connect("mongodb://localhost/travel", function(err){
+	if(err){
+		throw err;
+	}
+	console.log("Connection Sucess!");
+});
+
 
 app.use("/api", api);
 
