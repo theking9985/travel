@@ -1,6 +1,8 @@
 angular.module('travelServices', ['ngResource'])
-.factory('travel', ['$resource', function($resource) {
-  return {    };
+.factory('travel', ['$resource', "$firebaseAuth", function($resource, $firebaseAuth) {
+	var ref = new Firebase("https://shining-torch-3315.firebaseio.com/");
+  return { auth: $firebaseAuth(ref)  };
+
 }])
 .service('Authkey', function(){
   var authkey = "";

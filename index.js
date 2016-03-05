@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var path = require("path");
-
 var bodyParser = require("body-parser");
 var ejsLayout = require("express-ejs-layouts");
 var api = require("./controllers/api");
