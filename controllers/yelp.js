@@ -14,7 +14,7 @@ router.get("/", function(req, res) {
     token: process.env.TOKEN,
     token_secret: process.env.TOKEN_SECRET,
   });
-
+  console.log(process.env.CONSUMER_KEY);
 	yelp.search({type: 'food', location: 'Seattle'})
 	.then(function (data) {
 	res.send(data);
