@@ -30,4 +30,10 @@ router.get("/route", function(req, res) {
 // 2. preference
 // 3. Andrew will pass longitude and latitude to here and I will create route on google map
 
+router.get("/yelp", function(req, res) {
+	//var yelpData = yelp.search({type: 'food', location: 'Seattle'});
+	//res.send(yelpData);
+	res.send("testing");
+});
+
 module.exports = router;
