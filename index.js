@@ -20,6 +20,7 @@ mongoose.connect("mongodb://localhost/travel", function(err){
 
 
 app.use("/api", api);
+app.use("/yelp", api);
 
 
 app.get("/", function(req, res){
