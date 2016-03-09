@@ -10,21 +10,14 @@ router.get("/", function(req, res){
 	res.send("hi Api");
 });
 
-// GET route to display info of a user
-router.get("/profile", function(req, res) {
-	res.render("api/profile");
+// Create new user on Mongo using uid
+
+// POST route to edit a user's preference
+router.post("/profile/:firebaseId/edit", function(req, res) {
+
 });
-
-// GET & POST route to edit a user
-router.route("/profile/:firebaseId/edit")
-	.get(function(req, res) {
-		res.render("edit");
-	})
-	.post(function(req, res) {
-
-	});
-
-// GET route for route on google map
+	
+// POST route for route on google map; then pass it to Phil's front ends
 router.get("/route", function(req, res) {
 	res.render("route");
 });
