@@ -13,5 +13,6 @@
 
 
 module.getGeolocation = getGeolocation;
+module.exports = getGeolocation;
 
 })(window);
