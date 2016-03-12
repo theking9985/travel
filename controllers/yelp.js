@@ -14,11 +14,14 @@ router.get("/", function(req, res) {
     token: process.env.TOKEN,
     token_secret: process.env.TOKEN_SECRET,
   });
-  console.log(process.env.CONSUMER_KEY);
-	yelp.search({type: 'food', location: 'Seattle'})
+
+  var q = req.query.q;
+	yelp.search({type: q, location: 'Lynnwood'})
 	.then(function (data) {
-	res.send(data);
+
     console.log(data);
+	res.send(data);
+    console.log(q);
   })
   .catch(function (err) {
     console.error(err);
