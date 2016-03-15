@@ -2,6 +2,7 @@ angular.module("allInfoNearbyCtrls", [])
 .controller('homeCtrl', ['$scope','travel', 'Authkey', '$http', function($scope, travel, Authkey, $http){
   $scope.businesses = [];
   $scope.query = {};
+  $scope.getGeoLocation = {};
   $scope.LoggedIn = Authkey.getUserId() == "" ? false : true;
   $scope.search = function(){
     $scope.businesses  = [];
@@ -9,8 +10,18 @@ angular.module("allInfoNearbyCtrls", [])
       console.log(list.businesses);
       $scope.businesses = list.businesses;
     });
-   }
-
+  };
+   $scope.getLocation = function() {
+     if(navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(function(position) {
+         console.log(position);
+         $scope.getGeolocation.latitude = position.coords.latitude;
+         $scope.getGeolocation.longitude = position.coords.longitude;
+       });
+     } else {
+       console.log("Geolocation is not supported");
+     }
+   };
 }])
 .controller('profileCtrl', ['$scope','travel', 'Authkey','$location', '$http', function($scope, travel, Authkey, $location, $http){
   $scope.name = Authkey.getUserName();
@@ -112,4 +123,3 @@ angular.module("allInfoNearbyCtrls", [])
       });;
     };
 }])
-

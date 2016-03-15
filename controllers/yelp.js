@@ -14,11 +14,11 @@ router.get("/", function(req, res) {
     token: process.env.TOKEN,
     token_secret: process.env.TOKEN_SECRET,
   });
-  var search = JSON.parse(req.query.q);
+  var search = req.query.q;
 
 	yelp.search({term: search.term, location: search.location})
 	.then(function (data) {
-		  	
+
     // console.log(data);
 	res.send(data);
   console.log(req);

@@ -28,7 +28,7 @@ angular.module('travelServices', ['ngResource'])
   },
   getAuthKey: function(){
         return authkey;
-     }, 
+     },
   setAuthKey: function(key){
         authkey = key;
      },
