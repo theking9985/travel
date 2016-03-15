@@ -12,7 +12,37 @@ angular.module("allInfoNearbyCtrls", [])
    }
 
 }])
-.controller('registerCtrl', ['$scope','travel', 'Authkey','$location', '$http', function($scope, travel, Authkey, $http, $location){
+.controller('profileCtrl', ['$scope','travel', 'Authkey','$location', '$http', function($scope, travel, Authkey, $location, $http){
+  $scope.name = Authkey.getUserName();
+  $scope.location = Authkey.getUserLocation();
+  console.log(Authkey.getUserData())
+
+}])
+
+.controller('initialCtrl', ['$scope','travel', 'Authkey','$location', '$http', function($scope, travel, Authkey, $location, $http){
+  // if(Authkey.getUserData().email == null){
+  //   $location.path("/");
+  // }
+  $scope.user = {};
+  $scope.user.uid = Authkey.getUserId();
+  $scope.user.email = Authkey.getUserData().password.email;
+  $scope.message = "";
+  $scope.setUserPref = function(){
+  travel.initial.save([], $scope.user, function(res){
+    if(res.status == "OK"){
+    Authkey.setUserName(res.user.username);
+    Authkey.setAuthKey(res.user.id);
+    Authkey.setUserLocation(res.user.location);
+    $scope.message = Authkey.getUserName() + " has successfully registered."
+    $location.path('/profile');
+    } else {
+      $scope.message = res.message;
+    }
+
+    });
+  };
+}])
+.controller('registerCtrl', ['$scope','travel', 'Authkey','$location', '$http', function($scope, travel, Authkey, $location, $http){
 
 
     $scope.createUser = function() {
@@ -24,7 +54,16 @@ angular.module("allInfoNearbyCtrls", [])
         password: $scope.password
       }).then(function(userData) {
         $scope.message = "User created.";
+     travel.auth.$authWithPassword({
+        email: $scope.email,
+        password: $scope.password
+      }).then(function(userData) {
         Authkey.setUserId(userData.uid);
+        Authkey.setUserData(userData);
+        console.log(userData)
+        $location.path("/initial");
+      })
+
       }).catch(function(error) {
         $scope.error = error;
       });
@@ -50,17 +89,27 @@ angular.module("allInfoNearbyCtrls", [])
     $scope.login = function() {
       $scope.message = null;
       $scope.error = null;
-
+      $scope.user = {};
       travel.auth.$authWithPassword({
         email: $scope.email,
         password: $scope.password
       }).then(function(userData) {
         $scope.message = "LoggedIn.";
         Authkey.setUserId(userData.uid);
-        $location.path("/");
-      }).catch(function(error) {
-        $scope.error = error;
+        Authkey.setUserData(userData);
+        $scope.user.uid = userData.uid;
+
+         travel.authenticate.save([], $scope.user, function(res){
+          if(res.status == "OK"){
+          Authkey.setUserName(res.user.username);
+          Authkey.setAuthKey(res.user.id);
+          Authkey.setAuthLocation(res.user.location);
+          $location.path('/profile');
+          } 
       });
+    }).catch(function(error) {
+        $scope.error = error;
+      });;
     };
 }])
 

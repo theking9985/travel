@@ -40,6 +40,14 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     templateUrl: 'app/views/login.html',
     controller: 'loginCtrl'
   })
+  .when('/initial', {
+    templateUrl: 'app/views/user/initial.html',
+    controller: 'initialCtrl'
+  })
+  .when('/profile', {
+    templateUrl: 'app/views/user/profile.html',
+    controller: 'profileCtrl'
+  })
   .otherwise({
     templateUrl: 'app/views/404.html'
   });
