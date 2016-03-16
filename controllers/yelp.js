@@ -14,7 +14,8 @@ router.get("/", function(req, res) {
     token: process.env.TOKEN,
     token_secret: process.env.TOKEN_SECRET,
   });
-  var search = req.query.q;
+  var search = JSON.parse(req.query.q);
+  console.log("SEARCH", typeof((search)))
 
 	yelp.search({term: search.term, location: search.location})
 	.then(function (data) {

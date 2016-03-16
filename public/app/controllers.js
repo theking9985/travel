@@ -2,7 +2,7 @@ angular.module("allInfoNearbyCtrls", [])
 .controller('homeCtrl', ['$scope','travel', 'Authkey', '$http', function($scope, travel, Authkey, $http){
   $scope.businesses = [];
   $scope.query = {};
-  $scope.getGeoLocation = {};
+  $scope.getGeolocation = {};
   $scope.LoggedIn = Authkey.getUserId() == "" ? false : true;
   $scope.search = function(){
     $scope.businesses  = [];
@@ -26,6 +26,7 @@ angular.module("allInfoNearbyCtrls", [])
 .controller('profileCtrl', ['$scope','travel', 'Authkey','$location', '$http', function($scope, travel, Authkey, $location, $http){
   $scope.name = Authkey.getUserName();
   $scope.location = Authkey.getUserLocation();
+  console.log($scope.location)
   console.log(Authkey.getUserData())
 
 }])
@@ -114,7 +115,7 @@ angular.module("allInfoNearbyCtrls", [])
           if(res.status == "OK"){
           Authkey.setUserName(res.user.username);
           Authkey.setAuthKey(res.user.id);
-          Authkey.setAuthLocation(res.user.location);
+          Authkey.setUserLocation(res.user.location);
           $location.path('/profile');
           } 
       });
