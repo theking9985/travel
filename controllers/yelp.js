@@ -15,8 +15,9 @@ router.get("/", function(req, res) {
     token_secret: process.env.TOKEN_SECRET,
   });
   var search = JSON.parse(req.query.q);
+  var ll = search.latitude + "," + search.longitude;
 
-	yelp.search({term: search.term, location: search.location})
+	yelp.search({term: search.term, location: search.location, ll:ll})
 	.then(function (data) {
 
     // console.log(data);

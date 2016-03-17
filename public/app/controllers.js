@@ -2,7 +2,6 @@ angular.module("allInfoNearbyCtrls", [])
 .controller('homeCtrl', ['$scope','travel', 'Authkey', '$http', function($scope, travel, Authkey, $http){
   $scope.businesses = [];
   $scope.query = {};
-  $scope.getGeolocation = {};
   $scope.LoggedIn = Authkey.getUserId() == "" ? false : true;
   $scope.search = function(){
     $scope.businesses  = [];
@@ -15,8 +14,8 @@ angular.module("allInfoNearbyCtrls", [])
      if(navigator.geolocation) {
        navigator.geolocation.getCurrentPosition(function(position) {
          console.log(position);
-         $scope.getGeolocation.latitude = position.coords.latitude;
-         $scope.getGeolocation.longitude = position.coords.longitude;
+         $scope.query.latitude = position.coords.latitude;
+         $scope.query.longitude = position.coords.longitude;
        });
      } else {
        console.log("Geolocation is not supported");
